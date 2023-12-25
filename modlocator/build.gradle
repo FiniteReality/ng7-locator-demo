@@ -1,0 +1,32 @@
+plugins {
+    id 'java-library'
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+}
+
+base.archivesName = "finitereality.modlocator"
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+dependencies {
+    // TODO: which of these are necessary?
+    compileOnly("net.neoforged.fancymodloader:core:2.0.6") {
+        transitive = false
+    }
+    compileOnly("net.neoforged.fancymodloader:loader:2.0.6") {
+        transitive = false
+    }
+    compileOnly("net.neoforged.fancymodloader:spi:2.0.6") {
+        transitive = false
+    }
+}
+
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes('FMLModType': 'LIBRARY')
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
